@@ -23,26 +23,28 @@ def initialize_scene():
 def draw(screen, balls) : 
    screen.fill(colors.GREY)        
    for ball in balls:
-      draw_ball(ball, screen)
+      ball.draw_ball(ball, screen)
 
 
 def can_move_horizontal(ball, width):
-   return ((ball.dx > 0 and ball.x + ball.radius + ball.dx < width) or
-         (ball.dx < 0 and ball.x - ball.radius + ball.dx >= 0))
+   return ((ball.get_dx > 0 and ball.get_x + ball.get_radius + ball.get_dx < 
+      width) or(ball.get_dx < 0 and ball.get_x - ball.get_radius + 
+      ball.get_dx >= 0))
 
 
 def can_move_vertical(ball, height):
-   return ((ball.dy > 0 and ball.y + ball.radius + ball.dy < height) or
-         (ball.dy < 0 and ball.y - ball.radius + ball.dy >= 0))
+   return ((ball.get_dy > 0 and ball.get_y + ball.get_radius + ball.get_dy < 
+      height) or (ball.get_dy < 0 and ball.get_y - ball.get_radius + 
+      ball.get_dy >= 0))
 
 
 def move_ball(ball, width, height, balls):
    if not can_move_horizontal(ball, width):
-      ball.dx *= -1
+      ball.get_dx *= -1
    if not can_move_vertical(ball, height):
-      ball.dy *= -1
-   ball.x += ball.dx
-   ball.y += ball.dy
+      ball.get_dy *= -1
+   ball.get_x += ball.get_dx
+   ball.get_y += ball.get_dy
 
 
 def move(balls, width, height):
