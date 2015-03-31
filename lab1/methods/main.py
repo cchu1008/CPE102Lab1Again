@@ -27,24 +27,24 @@ def draw(screen, balls) :
 
 
 def can_move_horizontal(ball, width):
-   return ((ball.get_dx > 0 and ball.get_x + ball.get_radius + ball.get_dx < 
-      width) or(ball.get_dx < 0 and ball.get_x - ball.get_radius + 
-      ball.get_dx >= 0))
+   return ((ball.get_dx() > 0 and ball.get_x() + ball.get_radius() + ball.get_dx() < 
+      width) or(ball.get_dx() < 0 and ball.get_x() - ball.get_radius() + 
+      ball.get_dx() >= 0))
 
 
 def can_move_vertical(ball, height):
-   return ((ball.get_dy > 0 and ball.get_y + ball.get_radius + ball.get_dy < 
-      height) or (ball.get_dy < 0 and ball.get_y - ball.get_radius + 
-      ball.get_dy >= 0))
+   return ((ball.get_dy() > 0 and ball.get_y() + ball.get_radius() + ball.get_dy() < 
+      height) or (ball.get_dy() < 0 and ball.get_y() - ball.get_radius() + 
+      ball.get_dy() >= 0))
 
 
 def move_ball(ball, width, height, balls):
    if not can_move_horizontal(ball, width):
-      ball.get_dx *= -1
+      ball.change_dx(ball.get_dx() * -1)
    if not can_move_vertical(ball, height):
-      ball.get_dy *= -1
-   ball.get_x += ball.get_dx
-   ball.get_y += ball.get_dy
+      ball.change_dy(ball.get_dy() * -1)
+   ball.change_x(ball.get_x() + ball.get_dx())
+   ball.change_y(ball.get_y() + ball.get_dy())
 
 
 def move(balls, width, height):

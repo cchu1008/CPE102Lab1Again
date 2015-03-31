@@ -38,3 +38,20 @@ class Ball:
    def get_dy(self):
       return self.dy
 
+   def change_x(self, new_x):
+      self.x = new_x
+   
+   def change_y(self, new_y):
+      self.y = new_y
+      
+   def change_radius(self, new_r):
+      self.radius = new_r
+      
+   def change_color(self, new_c):
+      self.color = new_c
+      
+   def change_dx(self, new_dx):
+      self.dx = new_dx
+      
+   def change_dy(self, new_dy):
+      self.dy = new_dy
