@@ -3,7 +3,7 @@ import unittest
 
 class Tests(unittest.TestCase):
    def test1(self):
-      self.assertEqual(funcs.map(lambda x: x**2, [1,2,3]), [1,4,9])
+      self.assertEqual(funcs.map(lambda x: x**2, [1,2,3]), [1, 4, 9])
 
    def test2(self):
       self.assertEqual(funcs.map(lambda x: x+9, [1,2,3]), [10, 11, 12])
