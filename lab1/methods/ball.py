@@ -54,4 +54,4 @@ class Ball:
       self.dx = new_dx
       
    def change_dy(self, new_dy):
-      self.dy = new_dy
+      self.dy = new_dy  
