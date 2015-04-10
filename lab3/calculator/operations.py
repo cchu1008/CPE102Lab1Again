@@ -1,7 +1,28 @@
 class Expression(object):
    pass
 
-
+class BinaryExpression(Expression):
+   def __init__(self, lft, rht, st):
+      self.lft = lft
+      self.rht = rht
+      
+   def __str__(self, st):
+      if st == "add":
+         return '({0} + {1})'.format(self.lft, self.rht)
+      
+      elif st == "minus":
+         return '({0} - {1})'.format(self.lft, self.rht)
+         
+      elif st == "multiply":
+         return '({0} * {1})'.format(self.lft, self.rht)
+         
+      elif st == "divide":
+         return '({0} / {1})'.format(self.lft, self.rht)
+      
+   def evaluate(self, bindings):
+      self._applyOperator(self.lft.evaluate(bindings), self.rht.evaluate(bindings))
+      
+      
 class Assignment(object):
    def __init__(self, id, src):
       self.id = id
@@ -60,60 +81,36 @@ class DoubleConstantExpression(Expression):
       return self.num
 
 
-class AddExpression(Expression):
+class AddExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      self.lft = lft
-      self.rht = rht
+      super(AddExpression, self).__init__(lft, rht, "add")
+      
+   def _applyOperator(lft, rht):
+      return lft + rht
 
 
-   def __str__(self):
-      return '({0} + {1})'.format(self.lft, self.rht)
-
-
-   def evaluate(self, bindings):
-      return self.lft.evaluate(bindings) + self.rht.evaluate(bindings)
-
-
-class MinusExpression(Expression):
+class MinusExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      self.lft = lft
-      self.rht = rht
+      super(MinusExpression, self).__init__(lft, rht, "minus")
+      
+   def _applyOperator(lft, rht):
+      return lft - rht
 
 
-   def __str__(self):
-      return '({0} - {1})'.format(self.lft, self.rht)
-
-
-   def evaluate(self, bindings):
-      return self.lft.evaluate(bindings) - self.rht.evaluate(bindings)
-
-
-class TimesExpression(Expression):
+class TimesExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      self.lft = lft
-      self.rht = rht
+      super(TimesExpression, self).__init__(lft, rht, "multiply")      
+      
+   def _applyOperator(lft, rht):
+      return lft * rht
 
 
-   def __str__(self):
-      return '({0} * {1})'.format(self.lft, self.rht)
-
-
-   def evaluate(self, bindings):
-      return self.lft.evaluate(bindings) * self.rht.evaluate(bindings)
-
-
-class DivideExpression(Expression):
+class DivideExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      self.lft = lft
-      self.rht = rht
-
-
-   def __str__(self):
-      return '({0} / {1})'.format(self.lft, self.rht)
-
-
-   def evaluate(self, bindings):
-      return self.lft.evaluate(bindings) / self.rht.evaluate(bindings)
+      super(DivideExpression, self).__init__(lft, rht, "divide")
+      
+   def _applyOperator(lft, rht):
+      return lft / rht
 
 
 class UnboundIdentifierException(Exception):
@@ -121,4 +118,3 @@ class UnboundIdentifierException(Exception):
       self.value = value
    def __str__(self):
       return 'unbound identifier: {0}'.format(self.value)
-
