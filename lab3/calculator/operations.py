@@ -23,7 +23,7 @@ class BinaryExpression(Expression):
    def evaluate(self, bindings):
       first = self.lft.evaluate(bindings)
       second = self.rht.evaluate(bindings)
-      self._applyOperator(first, second)
+      return self._applyOperator(first, second)
       
       
 class Assignment(object):
