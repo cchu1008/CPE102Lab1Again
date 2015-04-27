@@ -8,17 +8,7 @@ class BinaryExpression(Expression):
       self.st = st
       
    def __str__(self):
-      if self.st == "add":
-         return '({0} + {1})'.format(self.lft, self.rht)
-      
-      elif self.st == "minus":
-         return '({0} - {1})'.format(self.lft, self.rht)
-         
-      elif self.st == "multiply":
-         return '({0} * {1})'.format(self.lft, self.rht)
-         
-      elif self.st == "divide":
-         return '({0} / {1})'.format(self.lft, self.rht)
+      return '({0} {1} {2})'.format(self.lft, self.st, self.rht)
       
    def evaluate(self, bindings):
       first = self.lft.evaluate(bindings)
@@ -86,7 +76,7 @@ class DoubleConstantExpression(Expression):
 
 class AddExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      super(AddExpression, self).__init__(lft, rht, "add")
+      super(AddExpression, self).__init__(lft, rht, "+")
       
    def _applyOperator(self, first, second):
       return (first + second)
@@ -94,7 +84,7 @@ class AddExpression(BinaryExpression):
 
 class MinusExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      super(MinusExpression, self).__init__(lft, rht, "minus")
+      super(MinusExpression, self).__init__(lft, rht, "-")
       
    def _applyOperator(self, first, second):
       return (first - second)
@@ -102,7 +92,7 @@ class MinusExpression(BinaryExpression):
 
 class TimesExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      super(TimesExpression, self).__init__(lft, rht, "multiply")      
+      super(TimesExpression, self).__init__(lft, rht, "*")      
       
    def _applyOperator(self, first, second):
       return (first * second)
@@ -110,7 +100,7 @@ class TimesExpression(BinaryExpression):
 
 class DivideExpression(BinaryExpression):
    def __init__(self, lft, rht):
-      super(DivideExpression, self).__init__(lft, rht, "divide")
+      super(DivideExpression, self).__init__(lft, rht, "/")
       
    def _applyOperator(self, first, second):
       return (first / second)
