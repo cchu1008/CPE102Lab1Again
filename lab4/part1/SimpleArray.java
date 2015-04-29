@@ -7,6 +7,7 @@ public class SimpleArray
          an array's length field (e.g., values.length).
       */
       int [] newValues = new int[values.length];  // This allocates an array of integers.
+      int [] newValues = new int[1];  // This allocates an array of integers.
 
       /* TO DO: The output array, newValues, should hold as
          its elements the square of the corresponding element

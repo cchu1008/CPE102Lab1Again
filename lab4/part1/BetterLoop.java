@@ -13,5 +13,7 @@ public class BetterLoop
 		  }		  // A bit optimistic, but a real boolean value.
 	  }
 	  return false;
+
+      return true;  // A bit optimistic, but a real boolean value.
    }
 }

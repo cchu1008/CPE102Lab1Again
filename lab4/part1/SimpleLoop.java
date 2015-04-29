@@ -15,5 +15,7 @@ public class SimpleLoop
 			i++;
 		}
 		return sum;
+
+      return 0;
    }
 }

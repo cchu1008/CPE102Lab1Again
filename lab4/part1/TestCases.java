@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.fail;
 import org.junit.Test;
 
@@ -30,6 +32,9 @@ public class TestCases
    public void testSimpleIf3()
    {
       assertEquals(2.5, SimpleIf.max(2.5, 0.1), DELTA);
+
+      fail("Missing SimpleIf3");
+
       /* TO DO: Write one more valid test case. */
    }
 
@@ -48,7 +53,11 @@ public class TestCases
    @Test
    public void testSimpleLoop3()
    {
+
       assertEquals(10, SimpleLoop.sum(1, 4));
+
+      fail("Missing SimpleLoop3");
+
       /* TO DO: Write one more valid test case to make sure that
          this function is not just returning 7. */
    }
@@ -72,8 +81,12 @@ public class TestCases
    @Test
    public void testSimpleArray3()
    {
+
       assertArrayEquals(null,
 	     SimpleArray.squareAll(new int[] {2, 4}), new int[] {4, 16});
+
+      fail("Missing SimpleArray3");
+
       /* TO DO: Add a new test case. */
    }
 
@@ -93,6 +106,7 @@ public class TestCases
    @Test
    public void testSimpleList2()
    {
+
       List<Integer> input =
 	     new LinkedList<Integer>(Arrays.asList(new Integer[] {3, 2, 1}));
 	  List<Integer> expected =
@@ -113,6 +127,11 @@ public class TestCases
 	   assertEquals(expected, SimpleList.squareAll(input));
    }
 
+      fail("Missing SimpleList2");
+      /* TO DO: Add a new test case. */
+   }
+
+
    @Test
    public void testBetterLoop1()
    {
@@ -128,10 +147,16 @@ public class TestCases
    @Test
    public void testBetterLoop3()
    {
+
       assertTrue(BetterLoop.contains(new int[] {2, 5, 6, 7, 8}, 5));
 	  assertFalse(BetterLoop.contains(new int[] {2, 4, 8, 7, 6}, 1));
       /* TO DO: Write a valid test case where the expected result is false. */
    }
    
    
+
+      fail("Missing BetterLoop3");
+      /* TO DO: Write a valid test case where the expected result is false. */
+   }
+
 }
