@@ -20,6 +20,8 @@ public class ProcessingIntro extends PApplet
       imgs.add(loadImage("wyvern1.png"));
       imgs.add(loadImage("wyvern2.png"));
       imgs.add(loadImage("wyvern3.png"));
+	  
+	  Point w1 = new Point(5, 5);
 
       current_image = 0;
       next_time = System.currentTimeMillis() + ANIMATION_TIME;
