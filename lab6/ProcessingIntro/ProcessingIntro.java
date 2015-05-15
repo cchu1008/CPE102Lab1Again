@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import processing.core.*;
+import processing.core.PApplet;
 
 public class ProcessingIntro extends PApplet
 {
@@ -21,7 +22,7 @@ public class ProcessingIntro extends PApplet
    private final int WALL_VALUE = 2;
    private final int GOAL_VALUE = 3;
    private static int worldWidth = 20;
-   private static int worldHeight = 14;
+   private static int worldHeight = 15;
 
    /* @pjs preload="wyvern1.png,wyvern2.png,wyvern3.png,wall.png,water.png,star.png"; */
 
@@ -53,8 +54,9 @@ public class ProcessingIntro extends PApplet
       world[5][7] = WALL_VALUE;
       world[6][7] = WALL_VALUE;
       world[7][7] = WALL_VALUE;
+	  world[12][10] = GOAL_VALUE;
 	  
-      Point w1 = new Point(5, 5);
+      w1 = new Point(5, 5);
 
       current_image = 0;
       next_time = System.currentTimeMillis() + ANIMATION_TIME;
@@ -75,7 +77,7 @@ public class ProcessingIntro extends PApplet
      {
        if (direction == "LEFT")
        {
-         if ((w1.getXCoord() - 1) > 0 && world[w1.getXCoord() - 1][w1.getYCoord()] != WALL_VALUE)
+         if ((w1.getXCoord() - 1) >= 0 && world[w1.getXCoord() - 1][w1.getYCoord()] != WALL_VALUE)
          {
            return true;
          }
@@ -91,7 +93,7 @@ public class ProcessingIntro extends PApplet
        }
        else if (direction == "UP")
        {
-         if ((w1.getYCoord() - 1) > 0 && world[w1.getXCoord()][w1.getYCoord() - 1] != WALL_VALUE)
+         if ((w1.getYCoord() - 1) >= 0 && world[w1.getXCoord()][w1.getYCoord() - 1] != WALL_VALUE)
          {
            return true;
          }
@@ -146,7 +148,7 @@ public class ProcessingIntro extends PApplet
      
      else if (key == 's' || key == 'S')
      {
-       if (canMove("DOWN"))
+       if (canMove("DOWN"))	
        {
          move("DOWN");
        }
@@ -170,44 +172,46 @@ public class ProcessingIntro extends PApplet
 
    public void draw()
    {
-     
-     for (int i = 0; i < worldWidth; i++)
-     {
-       for (int j = 0; j < worldHeight; j++)
-       {
-         if (world[i][j] == BGND_VALUE)
-         {
-           image(water, i, j);
-         }
-         else if (world[i][j] == WALL_VALUE)
-         {
-           image(wall, i, j);
-         }
-         else if (world[i][j] == GOAL_VALUE)
-         {
-           image(goal, i, j);
-         }
-       }
-     }
-     
+	   boolean stopBack = false;
+	   if (!stopBack)
+	   {
+		 for (int i = 0; i < worldWidth; i++)
+		 {
+			 for (int j = 0; j < worldHeight; j++)
+			 {
+				 if (world[i][j] == BGND_VALUE)
+				 {
+				   image(water, i * 32, j * 32);
+				 }
+				 else if (world[i][j] == WALL_VALUE)
+				 {
+				   image(wall, i * 32, j * 32);
+				 }
+				 else if (world[i][j] == GOAL_VALUE)
+				 {
+				   image(goal, i * 32, j * 32);
+				 }
+		     }
+		 }
+	   }
+	   else
+	   {
+		   fill(150, 150, 5);
+		   textSize(20);
+		   text("Congratulations!", 32*(worldWidth/2), 32*(worldHeight/2));
+	   }
+	    
       // A simplified action scheduling handler
-      long time = System.currentTimeMillis();
-      if (time >= next_time)
-      {
-         next_image();
-         next_time = time + ANIMATION_TIME;
-      }
+	  long time = System.currentTimeMillis();
+	  if (time >= next_time)
+	  {
+		 next_image();
+		 next_time = time + ANIMATION_TIME;
+	  }
 
-      background(BGND_COLOR);
-      image(imgs.get(current_image), w1.getXCoord(), w1.getYCoord());
-      
-      if (goalReached)
-      {
-        int cirRad = 1;
-        fill(200, 200, 50);
-        ellipse(w1.getXCoord(), w1.getYCoord(), cirRad, cirRad);
-        cirRad += 1;
-      }
+	  //background(BGND_COLOR);
+	  image(imgs.get(current_image), w1.getXCoord() * 32, w1.getYCoord() * 32);
+	 
    }
 
    public static void main(String[] args)
