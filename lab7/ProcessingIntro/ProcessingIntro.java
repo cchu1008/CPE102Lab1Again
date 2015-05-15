@@ -216,6 +216,13 @@ public class ProcessingIntro extends PApplet
 		 path = new int[worldWidth][worldHeight];
 		 findPath();
 	 }
+	 else if (key == ' ')
+	 {
+		 w1 = new Point(5, 2);
+		 init = new LinkedList<Point>();
+		 path = new int[worldWidth][worldHeight];
+		 goalReached = false;
+	 }
 	 
    }
 
