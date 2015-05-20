@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.LinkedList;
 
-public abstract class IterativeList<T> implements SimpleList
+public class IterativeList<T> implements SimpleList
 {
 	private IterativeNode first;
 	private List<IterativeNode> list;
@@ -12,12 +12,12 @@ public abstract class IterativeList<T> implements SimpleList
 		this.first = list.get(0);
 	}
 	
-	public void addToEnd(IterativeNode element)
+	public void addToEnd(Object element)
 	{
-		list.add(element);
+		list.add(IterativeNode(element));
 	}
 	
-	public void add(int index, IterativeNode element)
+	public void add(int index, Object element)
 	{
 		int size = list.size();
 		int idx = 0;
@@ -25,7 +25,7 @@ public abstract class IterativeList<T> implements SimpleList
 		{
 			idx++;
 		}
-		list.add(idx, element);
+		list.add(idx, IterativeNode(element, list.get(idx + 1)));
 	}
 	
 	public void remove(int index)
@@ -56,7 +56,7 @@ public abstract class IterativeList<T> implements SimpleList
 		return list.size();
 	}
 	
-	public SimpleList<IterativeNode> map(java.util.function.Function<Object, IterativeNode> function)
+	public <IterativeNode> SimpleList<IterativeNode> map(java.util.function.Function<Object, IterativeNode> function)
 	{
 		List<IterativeNode> fin_list = new LinkedList<IterativeNode>();
 		int size = list.size();
@@ -64,7 +64,7 @@ public abstract class IterativeList<T> implements SimpleList
 		
 		while (idx < size)
 		{
-			fin_list.add(function(list.get(idx)));
+			fin_list.add(function.apply(list.get(idx)));
 			idx++;
 		}
 		
