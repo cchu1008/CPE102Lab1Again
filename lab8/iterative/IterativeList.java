@@ -1,98 +1,159 @@
 import java.util.List;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.io.IOException;
 
-public class IterativeList<T> implements SimpleList
+public class IterativeList<T> implements SimpleList<T>
 {
-	private IterativeNode first;
-	private List<IterativeNode> list;
+	private IterativeNode<T> start;
 	
 	public IterativeList()
 	{
-		list = new LinkedList<IterativeNode>();
-		this.first = list.get(0);
+		this.start = null;
 	}
 	
-	public void addToEnd(Object element)
+	public void addToEnd(T element)
 	{
-		list.add(IterativeNode(element));
-	}
-	
-	public void add(int index, Object element)
-	{
-		int size = list.size();
-		int idx = 0;
-		while (idx < index)
+		if (start == null)
+			start = new IterativeNode<T>(element, null);
+		else
 		{
-			idx++;
+			IterativeNode<T> cur = start;
+			while (cur.getNext() != null)
+				cur = cur.getNext();
+			cur.setNext(new IterativeNode<T>(element, null));
 		}
-		list.add(idx, IterativeNode(element, list.get(idx + 1)));
+	}
+	
+	public void add(int index, T element)
+	{
+		int size = this.size();
+		int idx = 0;
+		IterativeNode<T> cur = start;
+		if (index < 0 || index > size)
+			throw new IndexOutOfBoundsException();
+		else if (index == 0)
+			start = new IterativeNode<T>(element, cur);
+		else if (index == size)
+		{
+			addToEnd(element);
+		}
+		else
+		{
+			while (idx < index - 1)
+			{
+				idx++;
+				cur = cur.getNext();
+			}
+			IterativeNode<T> newNode = new IterativeNode<T>(element, cur.getNext());
+			cur.setNext(newNode);
+		}
 	}
 	
 	public void remove(int index)
 	{
-		list.remove(index);
+		int size = this.size();
+		int idx = 0;
+		IterativeNode<T> cur = start;
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException();
+		else if (index == 0)
+			start = cur.getNext();
+		else
+		{
+			while (idx < index - 1)
+			{
+				idx++;
+				cur = cur.getNext();
+			}
+			cur.setNext(cur.getNext().getNext());
+		}
 	}
 	
 	public T get(int index)
 	{
-		return list.get(index).getValue();
+		int size = this.size();
+		int idx = 0;
+		IterativeNode<T> cur = start;
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException();
+		else if (index == 0)
+			return start.getValue();
+		else
+		{
+			while (idx < index)
+			{
+				idx++;
+				cur = cur.getNext();
+			}
+			return cur.getValue();
+		}
 	}
 	
-	public int indexOf(Object element)
+	public int indexOf(T element)
 	{
-		int size = list.size();
+		int size = this.size();
 		int idx = 0;
 		
-		while (idx < size && list.get(idx).getValue() != element)
+		while (idx < size && this.get(idx) != element)
 		{
 			idx++;
 		}
-		
-		return idx;
+		if (idx >= size || this.get(idx) != element)
+			throw new NoSuchElementException();
+		else
+			return idx;
 	}
 	
 	public int size()
 	{
-		return list.size();
+		int i = 0;
+		IterativeNode<T> cur = start;
+		while (cur != null)
+		{
+			i++;
+			cur = cur.getNext();
+		}
+		return i;
 	}
 	
-	public <IterativeNode> SimpleList<IterativeNode> map(java.util.function.Function<Object, IterativeNode> function)
+	public <R> SimpleList<R> map(java.util.function.Function<T, R> function)
 	{
-		List<IterativeNode> fin_list = new LinkedList<IterativeNode>();
-		int size = list.size();
+		SimpleList<R> fin_list = new IterativeList<R>();
+		int size = this.size();
 		int idx = 0;
 		
 		while (idx < size)
 		{
-			fin_list.add(function.apply(list.get(idx)));
+			fin_list.add(idx, function.apply(this.get(idx)));
 			idx++;
 		}
 		
-		return (IterativeList)fin_list;
+		return fin_list;
 	}
 	
-	public class IterativeNode
+	private static class IterativeNode<R>
 	{
-		private T value;
-		private T next;
+		public R value;
+		public IterativeNode<R> next;
 		
-		public IterativeNode(T value, T next)
+		public IterativeNode(R value, IterativeNode<R> next)
 		{
 			this.value = value;
 			this.next = next;
 		}
 		
-		public T getValue()
+		public R getValue()
 		{
 			return this.value;
 		}
 		
-		public T getNext()
+		public IterativeNode<R> getNext()
 		{
 			return this.next;
 		}
 		
-		public void setNext(T v)
+		public void setNext(IterativeNode<R> v)
 		{
 			this.next = v;
 		}
