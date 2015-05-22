@@ -1,45 +1,107 @@
 
-public class RecursiveList implements SimpleList
+public class RecursiveList implements SimpleList<T>
 {
-	private RecursiveNode value;
-	
-	public RecursiveList(RecursiveNode value)
+	private RecursiveNode<T> thing;
+
+	public RecursiveList(RecursiveNode<T> thing)
 	{
-		this.value = value;
+		this.thing = thing;
 	}
 	
-	public void addToEnd(RecursiveNode element)
+	public void addToEnd(T element)
 	{
-		value.addToEnd(element);
+		thing.addToEnd(element);
 	}
 	
-	public void add(int index, RecursiveNode element)
+	public void add(int index, T element)
 	{
-		value.add(index, element);
+		int size = this.size();
+		int idx = 0;
+		RecursiveNode<T> cur = thing;
+		if (index < 0 || index > size)
+			throw new IndexOutOfBoundsException();
+		else if (index == 0)
+			thing = new RecursiveNode<T>(element, cur);
+		else
+		{
+			//Maybe change to make more recursive...
+			while (idx < index - 1)
+			{
+				idx++;
+				cur = cur.getNext();
+			}
+			cur.add(index, element);
+		}
 	}
 	
 	public void remove(int index)
 	{
-		value.remove(index);
+		int size = this.size();
+		int idx = 0;
+		RecursiveNode<T> cur = thing;
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException();
+		else if (index == 0)
+			thing = cur.getNext();
+		else
+		{
+			//Maybe make more recursive.
+			while (idx < index - 1)
+			{
+				idx++;
+				cur = cur.getNext();
+			}
+			cur.remove(index);
+		}
 	}
 	
-	public RecursiveNode get(int index)
+	public T get(int index)
 	{
-		value.get(index);
+		int size = this.size();
+		int idx = 0;
+		RecursiveNode<T> cur = thing;
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException();
+		else if (index == 0)
+			return cur.getValue();
+		else
+		{
+			//maybe make more recursive
+			while (idx < index)
+			{
+				idx++;
+				cur = cur.getNext();
+			}
+			thing.get(index);
+		}
 	}
 	
-	public int indexOf(RecursiveNode element)
+	//Figure out how to do recursively!	
+	public int indexOf(T element)
 	{
-		value.indexOf(element);
+		int size = this.size();
+		int idx = 0;
+		int result = -1;
+		while (idx < size && thing.getValue() != element)
+		{
+			idx++;
+			thing = thing.getNext();
+		}
+		if (idx >= size || thing.getValue() != element)
+			throw new NoSuchElementException();
+		else
+			return idx;
+		
 	}
 	
 	public int size()
 	{
-		value.size();
+		public static int i = 0;
+		thing.size();
 	}
 	
 	public <R> SimpleList<R> map(java.util.function.Function<T, R> function)
 	{
-		return value.map(funcion);
+		return thing.map(funcion);
 	}
 }

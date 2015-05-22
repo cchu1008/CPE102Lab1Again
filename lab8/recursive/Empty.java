@@ -1,17 +1,24 @@
+import java.util.NoSuchElementException;
+import java.io.IOException;
 
-public class Empty implements RecursiveNode
+public class Empty implements RecursiveNode<T>
 {
 	public Empty()
 	{
 	}
 	
-	public RecursiveNode getValue()
+	public T getValue()
 	{
-		throw UnsupportedOperationException;
+		throw new UnsupportedOperationException();
 	}
 	
 	public RecursiveNode getNext()
 	{
-		throw UnsupportedOperationException;
+		throw new UnsupportedOperationException();
+	}
+	
+	public void addToEnd(T element)
+	{
+		
 	}
 }

@@ -1,5 +1,5 @@
 
-public interface RecursiveNode
+public interface RecursiveNode<T>
 {
 	public T getValue();
 	
