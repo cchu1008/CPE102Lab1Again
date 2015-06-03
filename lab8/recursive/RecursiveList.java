@@ -28,7 +28,6 @@ public class RecursiveList<T> implements SimpleList<T>
 		return head.get(index, 0);
 	}
 	
-	//Figure out how to do recursively!	
 	public int indexOf(T element)
 	{
 		return head.indexOf(element, 0);
